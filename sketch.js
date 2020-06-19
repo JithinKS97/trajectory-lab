@@ -9,8 +9,9 @@ function setup() {
 
   sources = new Sources();
   testParticle = new TestParticle();
+
   trajectoryTracer = new TrajectoryTracer({
-    tp: testParticle,
+    testP: testParticle,
     sources: sources.getAllSources(),
   });
 }
