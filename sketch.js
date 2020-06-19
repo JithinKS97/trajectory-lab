@@ -1,7 +1,7 @@
 let sources;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(960, 480);
   addSourceButton = createButton("Add source");
   addSourceButton.mousePressed(handleAddSourcePress);
   sources = new Sources();

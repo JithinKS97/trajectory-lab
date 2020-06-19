@@ -1,7 +1,6 @@
 class Source {
   constructor({ x, y, s }) {
     this.rndBox = new RndBox({ x, y, s, drawInside: this.drawInside });
-    this.dead = false;
   }
 
   display = () => {
