@@ -1,16 +1,19 @@
-let rndBoxes = [];
+let src;
 
 function setup() {
   createCanvas(400, 400);
-  rndBoxes.push(new RndBox({ x: width / 2 + 80, y: height / 2, s: 100 }));
-  rndBoxes.push(new RndBox({ x: width / 2 - 80, y: height / 2, s: 50 }));
+  src = new Source({
+    x: width / 2,
+    y: height / 2,
+    s: 100,
+  });
 }
 
 function draw() {
   background(0);
+  src.display();
+}
 
-  rndBoxes.forEach((rndBox) => {
-    rndBox.display();
-    rndBox.drag();
-  });
+function mousePressed() {
+  console.log(src);
 }
