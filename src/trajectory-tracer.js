@@ -37,9 +37,11 @@ class TrajectoryTracer {
 let dt = 0.1;
 // Gravitational constant
 let G = 2000;
+// No of points
+let noOfPoints = 400;
 
 const doNumericalIntegration = (sourcesPS, testPVS) => {
-  for (let i = 0; i < 200; i += 1) {
+  for (let i = 0; i < noOfPoints; i += 1) {
     const prevPos = createVector(testPVS.pos.x, testPVS.pos.y);
 
     const forceOnTP = getTotalForceOnTP(sourcesPS, testPVS);
@@ -66,7 +68,10 @@ const doNumericalIntegration = (sourcesPS, testPVS) => {
     strokeWeight(1);
 
     if (i % 2 === 0) {
+      push();
+      stroke(255, 255, 255, map(i, 0, noOfPoints, 255, 0));
       line(prevPos.x, prevPos.y, pos.x, pos.y);
+      pop();
     }
 
     testPVS.vel = vel;
