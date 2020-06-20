@@ -29,16 +29,14 @@ class TrajectoryTracer {
   }
 }
 
-/////////////////////////////////
-////// Helper functions ////////
-///////////////////////////////
-
-// Delta time
-let dt = 0.1;
+let dt;
 // Gravitational constant
 let G = 2000;
-// No of points
-let noOfPoints = 400;
+
+// No of projection points
+let noOfPoints = 20000;
+let DELTA_X = 0.1;
+let markInterval = 50;
 
 const doNumericalIntegration = (sourcesPS, testPVS) => {
   for (let i = 0; i < noOfPoints; i += 1) {
@@ -47,27 +45,28 @@ const doNumericalIntegration = (sourcesPS, testPVS) => {
     const forceOnTP = getTotalForceOnTP(sourcesPS, testPVS);
     const acc = forceOnTP.mult(1 / testPVS.size);
 
-    let dv = createVector(acc.x, acc.y).mult(dt);
+    let dv = createVector(acc.x, acc.y).mult(dt || 0.1);
 
     const vel = testPVS.vel.add(dv);
 
     /**
-     * To make dx always equal to 5
+     * To make dx always equal to DELTA_X
      *
      * dx/dt = v
-     * dx = 5
-     * dt = 5/v
+     *
+     * dx = DELTA_X
+     * dt = DELTA_X/v
      */
 
-    dt = 5 / vel.mag();
+    dt = DELTA_X / vel.mag();
 
     let dx = createVector(vel.x, vel.y).mult(dt);
 
     const pos = testPVS.pos.add(dx);
 
-    strokeWeight(1);
+    strokeWeight(2);
 
-    if (i % 2 === 0) {
+    if (i % markInterval === 0) {
       push();
       stroke(255, 255, 255, map(i, 0, noOfPoints, 255, 0));
       line(prevPos.x, prevPos.y, pos.x, pos.y);
