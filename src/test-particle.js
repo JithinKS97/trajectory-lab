@@ -57,8 +57,8 @@ class TestParticle {
 
   getVel() {
     return [
-      this.rndSub.getPos()[0] - this.rndMain.getPos()[0],
-      this.rndSub.getPos()[1] - this.rndMain.getPos()[1],
+      -(this.rndSub.getPos()[0] - this.rndMain.getPos()[0]),
+      -(this.rndSub.getPos()[1] - this.rndMain.getPos()[1]),
     ];
   }
 

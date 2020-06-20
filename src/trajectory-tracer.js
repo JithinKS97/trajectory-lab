@@ -1,6 +1,3 @@
-// Gravitational constant
-let G = 1500;
-
 class TrajectoryTracer {
   constructor({ testP, sources }) {
     // testP is test particle
@@ -36,7 +33,10 @@ class TrajectoryTracer {
 ////// Helper functions ////////
 ///////////////////////////////
 
+// Delta time
 let dt = 0.1;
+// Gravitational constant
+let G = 2000;
 
 const doNumericalIntegration = (sourcesPS, testPVS) => {
   for (let i = 0; i < 400; i += 1) {
@@ -46,9 +46,15 @@ const doNumericalIntegration = (sourcesPS, testPVS) => {
     const acc = forceOnTP.mult(1 / testPVS.size);
 
     let dv = createVector(acc.x, acc.y).mult(dt);
+
+    // To do - better numerical integration algorithm
+
+    // dt should always be one and its value depends on the current velocity
+
     const vel = testPVS.vel.add(dv);
 
     let dx = createVector(vel.x, vel.y).mult(dt);
+
     const pos = testPVS.pos.add(dx);
 
     strokeWeight(1);
@@ -82,8 +88,14 @@ const addForce = (testPS) => {
     const dispMag = disp.mag();
 
     // G*m1*m2/r2
-    const forceMag =
-      G * testPS.size * sourcePS.size * (1 / (dispMag * dispMag));
+
+    let forceMag;
+
+    if (dispMag != 0) {
+      forceMag = G * testPS.size * sourcePS.size * (1 / (dispMag * dispMag));
+    } else {
+      return totalForce;
+    }
 
     const force = disp.normalize().mult(forceMag);
 
