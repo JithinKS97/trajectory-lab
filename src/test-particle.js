@@ -51,13 +51,18 @@ class TestParticle {
     }
   }
 
-  getPosAndVel() {
-    return {
-      pos: this.rndMain.getPos(),
-      vel: [
-        this.rndSub.getPos()[0] - this.rndMain.getPos()[0],
-        this.rndSub.getPos()[1] - this.rndMain.getPos()[1],
-      ],
-    };
+  getPos() {
+    return this.rndMain.getPos();
+  }
+
+  getVel() {
+    return [
+      this.rndSub.getPos()[0] - this.rndMain.getPos()[0],
+      this.rndSub.getPos()[1] - this.rndMain.getPos()[1],
+    ];
+  }
+
+  getSize() {
+    return this.rndMain.getSize();
   }
 }

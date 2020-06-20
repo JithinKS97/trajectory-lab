@@ -33,3 +33,8 @@ function keyPressed(e) {
     sources.deleteCurrentlySelected();
   }
 }
+
+function mousePressed() {
+  console.log(trajectoryTracer.sourcesPS);
+  console.log(trajectoryTracer.testPVS);
+}

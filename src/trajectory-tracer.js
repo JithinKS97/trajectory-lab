@@ -5,16 +5,28 @@ class TrajectoryTracer {
   }
 
   trace() {
-    const mnp = this.getMassAndPosOfAllSources(this.sources);
-    const { pos, vel } = this.testP.getPosAndVel();
+    this.sourcesPS = getPosAndSizeOfAllSources(this.sources);
+    this.testPVS = getPVS(this.testP);
   }
-
-  getMassAndPosOfAllSources = (sources) => {
-    return sources.map((source) => {
-      return {
-        s: source.getSize(),
-        pos: source.getPos(),
-      };
-    });
-  };
 }
+
+/////////////////////////////////
+////// Helper functions ////////
+///////////////////////////////
+
+getPosAndSizeOfAllSources = (sources) => {
+  return sources.map((source) => {
+    return {
+      size: source.getSize(),
+      pos: source.getPos(),
+    };
+  });
+};
+
+getPVS = (testP) => {
+  return {
+    pos: testP.getPos(),
+    vel: testP.getVel(),
+    size: testP.getSize(),
+  };
+};
