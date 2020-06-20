@@ -39,7 +39,7 @@ let dt = 0.1;
 let G = 2000;
 
 const doNumericalIntegration = (sourcesPS, testPVS) => {
-  for (let i = 0; i < 400; i += 1) {
+  for (let i = 0; i < 200; i += 1) {
     const prevPos = createVector(testPVS.pos.x, testPVS.pos.y);
 
     const forceOnTP = getTotalForceOnTP(sourcesPS, testPVS);
@@ -47,11 +47,17 @@ const doNumericalIntegration = (sourcesPS, testPVS) => {
 
     let dv = createVector(acc.x, acc.y).mult(dt);
 
-    // To do - better numerical integration algorithm
-
-    // dt should always be one and its value depends on the current velocity
-
     const vel = testPVS.vel.add(dv);
+
+    /**
+     * To make dx always equal to 5
+     *
+     * dx/dt = v
+     * dx = 5
+     * dt = 5/v
+     */
+
+    dt = 5 / vel.mag();
 
     let dx = createVector(vel.x, vel.y).mult(dt);
 
