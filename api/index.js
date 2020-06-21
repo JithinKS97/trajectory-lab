@@ -1,0 +1,32 @@
+const express = require("express");
+const app = express();
+var cors = require("cors");
+const port = 3000;
+var bodyParser = require("body-parser");
+
+// support parsing of application/json type post data
+app.use(bodyParser.json());
+
+//support parsing of application/x-www-form-urlencoded post data
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
+
+const getRandomString = () =>
+  Math.random().toString(36).substring(2, 15) +
+  Math.random().toString(36).substring(2, 15);
+
+const systems = {};
+
+app.post("/save-system", function (req, res) {
+  const id = getRandomString();
+  systems[id] = req.body;
+  res.send({
+    message: "Successfully saved",
+    id: id,
+  });
+});
+
+app.listen(port, () =>
+  console.log(`Example app listening at http://localhost:${port}`)
+);
