@@ -31,3 +31,10 @@ h1 {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin-bottom: 10px;
 }
+
+.id-input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid grey;
+  margin-right: 1rem;
+}

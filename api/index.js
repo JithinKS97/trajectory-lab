@@ -27,6 +27,13 @@ app.post("/save-system", function (req, res) {
   });
 });
 
+app.post("/load-system", function (req, res) {
+  const system = systems[req.body.id] || { message: "Not found" };
+  res.send({
+    system,
+  });
+});
+
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)
 );
