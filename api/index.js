@@ -3,6 +3,7 @@ const app = express();
 var cors = require("cors");
 const port = 3000;
 var bodyParser = require("body-parser");
+var node = require("./ipfs");
 
 // support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -19,6 +20,7 @@ const getRandomString = () =>
 const systems = {};
 
 app.post("/save-system", function (req, res) {
+  node.saveData();
   const id = getRandomString();
   systems[id] = req.body;
   res.send({

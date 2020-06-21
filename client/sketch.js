@@ -1,4 +1,10 @@
-let sources, testParticle, trajectoryTracer, saveButton, idInput, loadButton;
+let sources,
+  testParticle,
+  trajectoryTracer,
+  saveButton,
+  idInput,
+  loadButton,
+  url;
 
 function setup() {
   createCanvas(960, 480);
@@ -11,13 +17,6 @@ function setup() {
   saveButton.addClass("add-source-button");
   saveButton.mousePressed(handleSaveButtonPress);
 
-  idInput = createInput();
-  idInput.addClass("id-input");
-
-  loadButton = createButton("load");
-  loadButton.addClass("add-source-button");
-  loadButton.mousePressed(handleLoadButtonPress);
-
   sources = new Sources();
   testParticle = new TestParticle();
 
@@ -25,6 +24,13 @@ function setup() {
     testP: testParticle,
     sources: sources.getAllSources(),
   });
+
+  let id = window.location.href.split("#")[1];
+  url = window.location.href.split("#")[0];
+
+  if (id) {
+    loadData(window.location.href.split("#")[1]);
+  }
 }
 
 function handleAddSourcePress() {
@@ -39,31 +45,14 @@ async function handleSaveButtonPress() {
   const res = await saveSystem({
     data,
   });
-  alert(`Id for the system is ${res.id}`);
+  alert(`${url}#${res.id}`);
 }
 
-async function handleLoadButtonPress() {
+async function loadData(id) {
   const res = await loadSystem({
-    id: idInput.value(),
+    id,
   });
-  idInput.value("");
   restoreSystem(res.system.data);
-}
-
-function restoreSystem({
-  sources: loadedSources,
-  testParticle: loadedTestParticle,
-}) {
-  loadedSources.map((loadedSource) => {
-    sources.addViaValues(
-      new Source({
-        x: loadedSource.pos[0],
-        y: loadedSource.pos[1],
-        s: loadedSource.size,
-        fill: [random(255), random(255), random(255)],
-      })
-    );
-  });
 }
 
 function draw() {
@@ -87,6 +76,7 @@ const getSourcesData = (sources) => {
   const data = sources.map((source) => ({
     size: source.getSize(),
     pos: source.getPos(),
+    fill: source.getFill(),
   }));
   return data;
 };

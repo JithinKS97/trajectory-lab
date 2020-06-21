@@ -55,6 +55,17 @@ class TestParticle {
     return this.rndMain.getPos();
   }
 
+  setPos({ x, y }) {
+    this.rndMain.setPos({ x, y });
+  }
+
+  setVel({ x, y }) {
+    this.rndSub.setPos({
+      x: this.rndMain.getPos()[0] - x,
+      y: this.rndMain.getPos()[1] - y,
+    });
+  }
+
   getVel() {
     return [
       -(this.rndSub.getPos()[0] - this.rndMain.getPos()[0]),
