@@ -38,21 +38,33 @@ function handleAddSourcePress() {
 }
 
 async function handleSaveButtonPress() {
-  const data = {
+  const system = {
     sources: getSourcesData(sources.getAllSources()),
     testParticle: getTestParticleData(testParticle),
   };
-  const res = await saveSystem({
-    data,
+  const id =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+
+  alert(`${url}#${id}`);
+
+  saveSystem({
+    id,
+    system,
   });
-  alert(`${url}#${res.id}`);
 }
 
-async function loadData(id) {
-  const res = await loadSystem({
-    id,
+function loadData(id) {
+  const canvasNode = document.querySelector(".p5Canvas");
+  canvasNode.style.display = "none";
+  const loadingNode = document.createElement("p");
+  loadingNode.innerHTML = "Loading...";
+  document.body.appendChild(loadingNode);
+  loadSystem(id).then((res) => {
+    document.body.removeChild(loadingNode);
+    canvasNode.style.display = "block";
+    restoreSystem(res);
   });
-  restoreSystem(res.system.data);
 }
 
 function draw() {
