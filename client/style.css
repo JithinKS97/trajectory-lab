@@ -7,7 +7,7 @@ body {
 canvas {
   display: block;
 }
-.add-source-button {
+.button {
   background-color: #034f6d;
   border: none;
   color: white;

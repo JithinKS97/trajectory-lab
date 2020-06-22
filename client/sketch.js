@@ -11,10 +11,10 @@ function setup() {
 
   addSourceButton = createButton("Add source");
   addSourceButton.mousePressed(handleAddSourcePress);
-  addSourceButton.addClass("add-source-button");
+  addSourceButton.addClass("button");
 
   saveButton = createButton("save");
-  saveButton.addClass("add-source-button");
+  saveButton.addClass("button");
   saveButton.mousePressed(handleSaveButtonPress);
 
   sources = new Sources();
@@ -29,7 +29,7 @@ function setup() {
   url = window.location.href.split("#")[0];
 
   if (id) {
-    loadData(window.location.href.split("#")[1]);
+    loadData(id);
   }
 }
 
@@ -54,17 +54,26 @@ async function handleSaveButtonPress() {
 }
 
 function loadData(id) {
+  const { canvasNode, loadingNode } = addLoading();
+  loadSystem(id).then((res) => {
+    removeLoading(canvasNode, loadingNode);
+    restoreSystem(res);
+  });
+}
+
+const addLoading = () => {
   const canvasNode = document.querySelector(".p5Canvas");
   canvasNode.style.display = "none";
   const loadingNode = document.createElement("p");
   loadingNode.innerHTML = "Loading...";
   document.body.appendChild(loadingNode);
-  loadSystem(id).then((res) => {
-    document.body.removeChild(loadingNode);
-    canvasNode.style.display = "block";
-    restoreSystem(res);
-  });
-}
+  return { canvasNode, loadingNode };
+};
+
+const removeLoading = (canvasNode, loadingNode) => {
+  document.body.removeChild(loadingNode);
+  canvasNode.style.display = "block";
+};
 
 function draw() {
   background(0);
