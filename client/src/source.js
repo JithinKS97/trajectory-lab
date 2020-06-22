@@ -49,6 +49,10 @@ class Source {
     this.rndBox.setPos({ x, y });
   };
 
+  getFill = () => {
+    return this.fill;
+  };
+
   getSize = () => {
     return this.rndBox.getSize();
   };

@@ -7,6 +7,10 @@ class Sources {
     this.sources.push(getNewSource());
   }
 
+  addViaValues(loadedSource) {
+    this.sources.push(loadedSource);
+  }
+
   display() {
     this.sources.forEach((source) => source.display());
   }

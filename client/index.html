@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+    <script src="src/api.js"></script>
+
     <script src="p5.js"></script>
     <script src="p5.rnd.js"></script>
 
@@ -9,16 +13,21 @@
     <script src="src/hallow.js"></script>
     <script src="src/test-particle.js"></script>
     <script src="src/trajectory-tracer.js"></script>
+    <script src="src/md5.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style.css" />
 
     <meta charset="utf-8" />
   </head>
   <body>
+    <script src="https://www.gstatic.com/firebasejs/7.15.3/firebase.js"></script>
+
+    <script defer src="src/init-firebase.js"></script>
+
     <h1>Trajectory lab</h1>
     <script src="sketch.js"></script>
-    <p>
-      Click add source to add more gravitational source. Seel how trajectory
+    <p class="desc">
+      Click add source to add more gravitational source. See how trajectory
       change by moving and resizing it. Press delete to remove it.
     </p>
   </body>
