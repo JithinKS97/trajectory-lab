@@ -42,15 +42,14 @@ async function handleSaveButtonPress() {
     sources: getSourcesData(sources.getAllSources()),
     testParticle: getTestParticleData(testParticle),
   };
-  const id =
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
+
+  var id = md5(JSON.stringify(system));
 
   alert(`${url}#${id}`);
 
   saveSystem({
-    id,
     system,
+    id,
   });
 }
 
